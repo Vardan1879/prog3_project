@@ -1,4 +1,4 @@
-class Mard {
+module.exports = class Mard {
   constructor(x, y, index) {
     this.index = index;
     this.x = x;

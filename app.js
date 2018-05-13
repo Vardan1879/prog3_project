@@ -10,3 +10,8 @@ app.get("/", function(req, res){
 app.listen(3000, function(){
    console.log("Example is running on port 3000");
 });
+var Grass = require("./classes/class.grass.js"); 
+var GrassEater = require("./classes/class.grassEater.js");
+var Gishatich  = require("./classes/class.gishatich.js");
+var Mard = require("./classes/class.mard.js");
+var Edinarog = require("./classes/class.edinarog.js");
