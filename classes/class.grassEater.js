@@ -1,9 +1,9 @@
-module.exports = class GrassEater {
+var LivingCreature = require('./class.cnox.js')
+
+module.exports = class GrassEater extends LivingCreature{
   constructor(x, y, index) {
-    this.x = x;
-    this.y = y;
+    super(x,y,index);
     this.energy = 5;
-    this.index = index;
     this.eatCount = 0;
   }
   getNewCoordinates() {
@@ -20,24 +20,14 @@ module.exports = class GrassEater {
   }
 
 
-  chooseCell(character) {
+  chooseCell(ch) {
     this.getNewCoordinates();
-    var found = [];
-    for (var i in this.directions) {
-      var x = this.directions[i][0];
-      var y = this.directions[i][1];
-      if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-        if (matrix[y][x] == character) {
-          found.push(this.directions[i]);
-        }
-      }
-
-    }
-    return found;
+    return super.chooseCell(ch);
   }
   move() {
     var emptyCells = this.chooseCell(0);
-    var newCell = random(emptyCells);
+    var index = Math.floor(Math.random() * emptyCells.length);
+    var newCell = emptyCells[index];
     if (newCell) {
       var x = newCell[0];
       var y = newCell[1];
@@ -52,7 +42,8 @@ module.exports = class GrassEater {
 
   eat() {
     var xoter = this.chooseCell(1);
-    var taracq = random(xoter);
+    var index = Math.floor(Math.random()*xoter.length);
+    var taracq = xoter[index];
     if (taracq) {
 
       var x = taracq[0];
@@ -88,7 +79,8 @@ module.exports = class GrassEater {
   mul() {
     var emptyCells = this.chooseCell(0);
 
-    var newCell = random(emptyCells);
+    var index = Math.floor(Math.random()*emptyCells.length);
+    var newCell = emptyCells[index];
     if (newCell) {
       var newX = newCell[0];
       var newY = newCell[1];

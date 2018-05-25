@@ -1,8 +1,8 @@
-module.exports = class edinarog{
+var LivingCreature = require('./class.cnox.js')
+
+module.exports = class Edinarog extends LivingCreature {
   constructor(x, y, index) {
-    this.index = index;
-    this.x = x;
-    this.y = y;
+    super(x, y, index);
     this.energy = 5;
   }
   getNewCoordinates() {
@@ -37,20 +37,9 @@ module.exports = class edinarog{
       [this.x + 1, this.y + 2]
     ];
   }
-  chooseCell(character) {
+  chooseCell(ch) {
     this.getNewCoordinates();
-    var found = [];
-    for (var i in this.directions) {
-      var x = this.directions[i][0];
-      var y = this.directions[i][1];
-      if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-        if (matrix[y][x] == character) {
-          found.push(this.directions[i]);
-        }
-      }
-
-    }
-    return found;
+    return super.chooseCell(ch);
   }
   die() {
     matrix[this.y][this.x] = 0;
@@ -63,7 +52,10 @@ module.exports = class edinarog{
   move() {
 
     var emptyCells = this.chooseCell(0);
-    var newCell = random(emptyCells);
+
+
+    var index = Math.floor(Math.random() * emptyCells.length);
+    var newCell = emptyCells[index];
 
     if (newCell) {
       var x = newCell[0];
@@ -77,22 +69,23 @@ module.exports = class edinarog{
   mul() {
     var emptyCells = this.chooseCell(0);
 
-    var newCell = random(emptyCells);
+    var index = Math.floor(Math.random() * emptyCells.length);
+    var newCell = emptyCells[index];
     if (newCell) {
       var x = newCell[0];
       var y = newCell[1];
-      var newTiv = Math.round(random(2));
-      if(newTiv==0){
+      var newTiv = Math.floor(Math.random() * 3);
+      if (newTiv == 0) {
         var edo = new Grass(x, y, this.index);
         grassArr.push(edo);
         matrix[y][x] = 1;
-      } 
-      else if(newTiv==1){
+      }
+      else if (newTiv == 1) {
         var exo = new GrassEater(x, y, this.index);
         xotakerArr.push(exo);
         matrix[y][x] = 2;
       }
-      else if(newTiv==2){
+      else if (newTiv == 2) {
         var ego = new Gishatich(x, y, this.index);
         gishatichArr.push(ego);
         matrix[y][x] = 3;

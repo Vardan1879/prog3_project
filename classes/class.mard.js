@@ -1,8 +1,8 @@
-module.exports = class Mard {
+var LivingCreature = require('./class.cnox.js')
+
+module.exports = class Mard extends LivingCreature {
   constructor(x, y, index) {
-    this.index = index;
-    this.x = x;
-    this.y = y;
+    super(x,y,index);
     this.energy = 15;
   }
   getNewCoordinates() {
@@ -37,25 +37,15 @@ module.exports = class Mard {
       [this.x + 1, this.y + 2]
     ];
   }
-  chooseCell(character) {
+  chooseCell(ch) {
     this.getNewCoordinates();
-    var found = [];
-    for (var i in this.directions) {
-      var x = this.directions[i][0];
-      var y = this.directions[i][1];
-      if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-        if (matrix[y][x] == character) {
-          found.push(this.directions[i]);
-        }
-      }
-
-    }
-    return found;
+    return super.chooseCell(ch);
   }
   move() {
 
     var emptyCells = this.chooseCell(0);
-    var newCell = random(emptyCells);
+    var index = Math.floor(Math.random()*emptyCells.length);
+    var newCell = emptyCells[index];
 
     if (newCell) {
       var x = newCell[0];
@@ -70,9 +60,12 @@ module.exports = class Mard {
     var eatCells = this.chooseCell(1);
     var eatCells1 = this.chooseCell(2);
     var eatCells2 = this.chooseCell(3);
-    var newCell = random(eatCells);
-    var newCell1 = random(eatCells1);
-    var newCell2 = random(eatCells2);
+    var index = Math.floor(Math.random()*eatCells.length);
+    var newCell = eatCells[index];
+    var index = Math.floor(Math.random()*eatCells1.length);
+    var newCell1 = eatCells1[index];
+    var index = Math.floor(Math.random()*eatCells2.length);
+    var newCell2 = eatCells2[index];
     if (newCell) {
 
       var x = newCell[0];
@@ -105,7 +98,8 @@ module.exports = class Mard {
       this.energy++;
       if (this.energy >= 20) {
         var eatCells = this.chooseCell(4);
-        var mardCord = random(eatCells);
+        var index = Math.floor(Math.random()*eatCells.length);
+        var mardCord = eatCells[index];
         if (mardCord) {
           this.mul();
           this.energy = 5;
@@ -148,7 +142,8 @@ module.exports = class Mard {
       this.energy++;
       if (this.energy >= 20) {
         var eatCells1 = this.chooseCell(4);
-        var mardCord = random(eatCells1);
+        var index = Math.floor(Math.random()*eatCells1.length);
+        var mardCord = eatCells1[index];
         if (mardCord) {
           this.mul();
           this.energy = 5;
@@ -191,7 +186,8 @@ module.exports = class Mard {
       this.energy++;
       if (this.energy >= 20) {
         var eatCells2 = this.chooseCell(4);
-        var mardCord = random(eatCells2);
+        var index = Math.floor(Math.random()*eatCells2.length);
+        var mardCord = eatCells2[index];
         if (mardCord) {
           this.mul();
           this.energy = 5;
@@ -204,18 +200,16 @@ module.exports = class Mard {
       }
     }
     else {
-      this.move();
-      // this.energy--;
-    //   if(this.energy <= 0){
-    //     this.die();
-    //   }
-    // }
+      if(weather != "amar"){
+        this.move();
+      }
   }
 }
   mul() {
     var emptyCells = this.chooseCell(0);
 
-    var newCell = random(emptyCells);
+    var index = Math.floor(Math.random()*emptyCells.length);
+    var newCell = emptyCells[index];
     if (newCell) {
       var x = newCell[0];
       var y = newCell[1];
@@ -227,7 +221,8 @@ module.exports = class Mard {
   }
   killdim() {
     var mardik = this.chooseCell(4);
-    var kill = random(mardik);
+    var index = Math.floor(Math.random()*mardik.length);
+    var kill = mardik[index];
     if(kill){
       this.energy--;
       if(this.energy <= 0){
@@ -241,6 +236,7 @@ die() {
     for (var i in mardArr) {
       if (this.x == mardArr[i].x && this.y == mardArr[i].y) {
         mardArr.splice(i, 1);
+        break;
       }
     }
   }
