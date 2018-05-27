@@ -72,6 +72,7 @@ module.exports = class Edinarog extends LivingCreature {
     var index = Math.floor(Math.random() * emptyCells.length);
     var newCell = emptyCells[index];
     if (newCell) {
+      edinarogMul++;
       var x = newCell[0];
       var y = newCell[1];
       var newTiv = Math.floor(Math.random() * 3);

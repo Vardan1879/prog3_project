@@ -2,13 +2,14 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+app.set('port', process.env.PORT || 3000);
 app.use(express.static("public"));
 
 app.get("/", function (req, res) {
     res.redirect("public/index.html");
 });
 
-server.listen(3000);
+server.listen(app.get('port'));
 
 
 var Grass = require("./classes/class.grass.js");
@@ -16,6 +17,14 @@ var GrassEater = require("./classes/class.grassEater.js");
 var Gishatich = require("./classes/class.gishatich.js");
 var Mard = require("./classes/class.mard.js");
 var Edinarog = require("./classes/class.edinarog.js");
+var fs = require('fs');
+
+xotBazm = 0;
+xotakerEat = 0;
+mardyKeravXot = 0;
+mardyKeravXotaker = 0;
+mardyKeravGishatich = 0;
+edinarogMul = 0;
 
 matrix = [];
 grassArr = [];
@@ -142,8 +151,44 @@ function func() {
 
     io.sockets.emit("matrix", matrix);
     io.sockets.emit("exanak", weather);
+} 
+io.on('connection', function () { });
+var takt = 0;
+var obj = {
+    'xotBazmanal': [],
+    'xotakerUtel': [],
+    'mardyKeravXotin': [],
+    'mardyKeravXotakerin': [],
+    'mardyKeravGishatichin': [],
+    'edinarogBazm': [],
 }
+setInterval(function () {
+    takt++;
+    func();
+    var imJSON = JSON.stringify(obj);
+    if (takt % 2 == 0) {
+        obj.xotBazmanal.push(xotBazm);
+        fs.writeFile("obj.json", imJSON);
+        console.log(obj);
+    
+        obj.xotakerUtel.push(xotakerEat);
+        fs.writeFile("obj.json", imJSON);
+        console.log(obj);
+    
+        obj.mardyKeravXotin.push(mardyKeravXot);
+        fs.writeFile("obj.json", imJSON);
+        console.log(obj);
 
-io.on('connection', function () {
-    setInterval(func, 3000);
-});
+        obj.mardyKeravXotakerin.push(mardyKeravXotaker);
+        fs.writeFile("obj.json", imJSON);
+        console.log(obj);
+
+        obj.mardyKeravGishatichin.push(mardyKeravGishatich);
+        fs.writeFile("obj.json",imJSON);
+        console.log(obj);
+    
+        obj.edinarogBazm.push(edinarogMul);
+        fs.writeFile("obj.json",imJSON);
+        console.log(obj);
+    }
+},3000)

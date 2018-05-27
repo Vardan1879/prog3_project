@@ -58,6 +58,7 @@ module.exports = class GrassEater extends LivingCreature{
 
       for (var i in grassArr) {
         if (grassArr[i].x == x && grassArr[i].y == y) {
+          xotakerEat++;
           grassArr.splice(i, 1);
           break;
         }

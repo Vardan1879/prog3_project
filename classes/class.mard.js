@@ -67,7 +67,7 @@ module.exports = class Mard extends LivingCreature {
     var index = Math.floor(Math.random()*eatCells2.length);
     var newCell2 = eatCells2[index];
     if (newCell) {
-
+      mardyKeravXot++;
       var x = newCell[0];
       var y = newCell[1];
 
@@ -112,7 +112,7 @@ module.exports = class Mard extends LivingCreature {
       }
     }
     else if (newCell1) {
-
+      mardyKeravXotaker++;
       var x = newCell1[0];
       var y = newCell1[1];
 
@@ -156,7 +156,7 @@ module.exports = class Mard extends LivingCreature {
       }
     }
     else if (newCell2) {
-
+      mardyKeravGishatich++;
       var x = newCell2[0];
       var y = newCell2[1];
 

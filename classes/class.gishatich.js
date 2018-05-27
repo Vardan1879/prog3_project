@@ -4,6 +4,7 @@ module.exports = class Gishatich extends LivingCreature {
   constructor(x, y, index) {
     super(x, y, index);
     this.energy = 5;
+    this.age = 0;
   }
 
   getNewCoordinates() {
@@ -49,6 +50,7 @@ module.exports = class Gishatich extends LivingCreature {
     var newCell = emptyCells[index];
 
     if (newCell) {
+      this.age++;
       var x = newCell[0];
       var y = newCell[1];
       for (var i in grassArr) {
